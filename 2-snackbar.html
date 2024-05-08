@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snackbar</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"
+    />
+    
+    <script type="module" crossorigin src="/vanilla-app-template/commonHelpers2.js"></script>
+    <link rel="modulepreload" crossorigin href="/vanilla-app-template/assets/modulepreload-polyfill-3cfb730f.js">
+    <link rel="modulepreload" crossorigin href="/vanilla-app-template/assets/vendor-77e16229.js">
+    <link rel="stylesheet" href="/vanilla-app-template/assets/vendor-7a007824.css">
+    <link rel="stylesheet" href="/vanilla-app-template/assets/2-snackbar-9cfc69d3.css">
+  </head>
+  <body>
+    <section>
+      <a href="./index.html">Go to home</a>
+      <br><br>
+      <form class="form">
+        <label class="label">
+          Delay (ms)
+          <input type="number" name="delay" required />
+        </label>
+
+        <fieldset class="fieldset">
+          <legend>State</legend>
+          <label>
+            <input type="radio" name="state" value="fulfilled" required />
+            Fulfilled
+          </label>
+          <label>
+            <input type="radio" name="state" value="rejected" required />
+            Rejected
+          </label>
+        </fieldset>
+
+        <button type="submit">Create notification</button>
+      </form>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    
+  </body>
+</html>
