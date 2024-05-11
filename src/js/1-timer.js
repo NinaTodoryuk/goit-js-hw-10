@@ -1,9 +1,3 @@
-import flatpickr from "flatpickr";
-import "flatpickr/dist/flatpickr.min.css";
-
-import iziToast from "izitoast";
-import "izitoast/dist/css/iziToast.min.css";
-
 const dataTime = document.querySelector('#datetime-picker'); // countdown сell
 const startBtn = document.querySelector('button[data-start]');
 const timerCell = {
@@ -13,12 +7,9 @@ const timerCell = {
     seconds: document.querySelector('[data-seconds]'),
 };
 
-if (startBtn && dataTime && !Object.values(timerCell).some(field => field === null)) {
-    } else {
-    throw new Error('Missing required elements');
+if (!startBtn || !dataTime || Object.values(timerCell).some(field => field === null)) {
+    console.error('Please choose a date in the future');
 }
-
-const time = Date.now(); // Отримання поточного часу
 
 let userSelectedDate = null;
 startBtn.disabled = true;
@@ -27,10 +18,14 @@ let timerInterval;
 const options = {
     enableTime: true,
     time_24hr: true,
-    defaultDate: new Date(time), 
+    defaultDate: new Date(), 
     minuteIncrement: 1,// Використання поточного часу як значення за замовчуванням
+    
+    
+    
     onClose(selectedDates) {
         const selectedDate = selectedDates[0];
+         // Перевірка на валідність дати
         if (selectedDate < new Date()) {
             iziToast.error({
                 title: "Error",
@@ -41,22 +36,16 @@ const options = {
             userSelectedDate = selectedDate;
             startBtn.disabled = false;
         }
-    },
+    }
 };
 
-flatpickr(dataTime, options);
-
-// Додати обробник подій click на поле вводу дати
-dataTime.addEventListener("click", () => {
-    // Відкриття календаря Flatpickr
-    flatpickr(dataTime, options);
-});
+flatpickr('#datetime-picker', options),
 
 startBtn.addEventListener("click", () => {
     if (!userSelectedDate) return;
 
     const startTime = new Date();
-    const endTime = userSelectedDate.getTime();
+    const endTime = userSelectedDate;
 
     startBtn.disabled = true;
     dataTime.disabled = true;
@@ -90,14 +79,18 @@ function convertMs(ms) {
     const hour = minute * 60;
     const day = hour * 24;
 
+    // Remaining days
     const days = Math.floor(ms / day);
+    // Remaining hours
     const hours = Math.floor((ms % day) / hour);
+    // Remaining minutes
     const minutes = Math.floor(((ms % day) % hour) / minute);
+    // Remaining seconds
     const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-    return { days, hours, minutes, seconds };
+    return { days, hours, minutes, seconds};
 }
 
 function addLeadingZero(value) {
     return value.padStart(2, '0');
-}
+};
